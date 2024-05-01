@@ -9,7 +9,7 @@
 #********************************************************************
 
 CorpID="ww6443207e476b"                             #我的企业下面的CorpID
-Secret="cGp12321321321321321nGp-uCrEZyrgDvOT0OZA"    #创建的应用那里的Secret
+Secret="cGp1232132sdfsdf1321321321nGp-uCrEZyrgDvOT0OZA"    #创建的应用那里的Secret
 agentid=1002223                                         #改为 AgentId 在创建的应用可以查看
 #PartyID=1                                                    #通讯录中的部门ID,可选项
 GURL="https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$CorpID&corpsecret=$Secret"
