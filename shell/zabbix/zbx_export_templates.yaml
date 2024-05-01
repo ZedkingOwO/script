@@ -1,0 +1,37 @@
+zabbix_export:
+  version: '6.0'
+  date: '2024-01-10T08:34:21Z'
+  groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: c1efb30d67794524b82c212003571b25
+      template: template-m56
+      name: template-m56
+      groups:
+        - name: Templates
+      items:
+        - uuid: 2929ced017d54c2aad57907ea1df144b
+          name: tcp_state_established数量
+          key: 'tcp_state[ESTABLISHED]'
+          delay: '10'
+        - uuid: 4b8f1578f0c04cb88dbd7af8b6fac981
+          name: tcp_state_listen数量
+          key: 'tcp_state[LISTEN]'
+          delay: '10'
+        - uuid: 87a7c629f7ab4cd894996ef3ca5a294c
+          name: tcp_state_SYN_SENT数量
+          key: 'tcp_state[SYN_SENT]'
+          delay: '10'
+        - uuid: 87a7c629f7ab4cd894996ef3ca5a294d
+          name: tcp_state_SYN_RECV数量
+          key: 'tcp_state[SYN_RECV]'
+          delay: '10'		  
+        - uuid: 87a7c629f7ab4cd894996ef3ca5a2933
+          name: tcp_state_FIN_WAIT1数量
+          key: 'tcp_state[FIN_WAIT1]'
+          delay: '10'		
+        - uuid: 38913212d42a4ddebb7c70bc56a4f5f6
+          name: 用户登录数
+          key: user_online_number
+          delay: '10'

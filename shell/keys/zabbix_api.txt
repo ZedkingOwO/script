@@ -1,0 +1,80 @@
+ZABBIX_SERVER=10.0.0.200
+curl -s -XPOST -H "Content-Type: application/json-rpc" -d '                     
+{
+ "jsonrpc": "2.0",
+ "method": "user.login",
+ "params": {
+ "user": "Admin",
+ "password": "zabbix"
+ },
+ "id": 1,
+ "auth": null
+ }' http://${ZABBIX_SERVER}/api_jsonrpc.php
+ 
+ 
+
+#获取所有主机列表
+ZABBIX_SERVER=www.zed.org
+ TOKEN=$(./login.sh| awk -F'"' '{print $8}')
+ curl -s -XPOST -H "Content-Type: application/json-rpc" -d '
+ {
+ "jsonrpc": "2.0",
+ "method": "host.get",
+ "params": {
+ "output": [ "host" ]
+ },
+ "id": 1,
+ "auth": "'$TOKEN'"
+ }' http://${ZABBIX_SERVER}/api_jsonrpc.php 
+ 
+ 
+ #获取主机信息
+ZABBIX_SERVER=10.0.0.100
+ TOKEN=$(./zabbix-api-token.sh| awk -F'"' '{print $8}')
+ curl -s -XPOST -H "Content-Type: application/json-rpc" -d '
+ {
+"jsonrpc": "2.0",
+ "method": "host.get",
+ "params": {
+ "output": [ "hostid", "host" ],
+ "selectInterfaces": [ "interfaceid", "ip" ]
+    },
+ "id": 1,
+ "auth": "'$TOKEN'"
+ }' http://${ZABBIX_SERVER}/zabbix/api_jsonrpc.php | python3 -m json.tool
+ 
+ #添加一个或多个主机
+ZABBIX_SERVER=www.zed.org
+TOKEN=$(./zabbix-api-token.sh| awk -F'"' '{print $8}')
+HOST=10.0.0.106
+curl -s -XPOST -H "Content-Type: application/json-rpc" -d '
+{
+"jsonrpc": "2.0",
+"method": "host.create",
+"params": {
+"host": "'web-api-$HOST'",   #创建主机名称
+"name": "'web-api-$HOST'",    #可见的名称
+"interfaces": [
+        {
+"type": 1,  				 #类型为1表示agent客户端，2是SNMP，3是IPMI，4是JMX
+"main": 1,  				 #主要接口
+"useip": 1,					#0是使用DNS，1是使用IP地址
+"ip": "'$HOST'",			#添加的zabbix agent的IP地址
+"dns": "",
+"port": "10050"     		#agent使用的端口
+       }
+   ],
+"groups": [ 
+       {
+"groupid": "20"				#添加到的组的ID
+       }
+   ],
+"templates": [ 
+       {
+"templateid": "10599"  	#关联的模板的ID
+       } 
+   ]
+},
+"id": 1,
+"auth": "'$TOKEN'"
+}' http://${ZABBIX_SERVER}/api_jsonrpc.php 
